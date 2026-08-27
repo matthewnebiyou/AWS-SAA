@@ -1,1 +1,13 @@
-#!bin/bash
+#!/bin/bash
+
+#User supplies S3 bucket name
+read -r -p "Enter the name of the S3 bucket: " BUCKET_NAME
+
+#Checking if user supplied S3 bucket name
+if [ -z "$BUCKET_NAME" ]; then
+	echo "You need to specify a bucket"
+	exit 1
+fi
+
+#Listing objects in specified bucket
+aws s3api list-objects --bucket $BUCKET_NAME

@@ -1,1 +1,13 @@
-#!bin/bash
+#!/bin/bash
+
+#User supplies name for S3 bucket to be created
+read -r -p "Enter the name of the bucket you'd like to create: " BUCKET_NAME
+
+#Asking for S3 bucket name
+if [ -z "$BUCKET_NAME" ]; then
+	echo "There needs to be a bucket name"
+	exit 1
+fi
+
+#Creating bucket
+aws s3api create-bucket --bucket $BUCKET_NAME

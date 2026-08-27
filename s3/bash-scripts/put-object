@@ -1,1 +1,14 @@
-#!bin/bash
+#!/bin/bash
+
+#Requesting bucket and key name for creating the file
+read -r -p "Enter the name of the S3 bucket: " BUCKET_NAME
+read -r -p "Enter the the name of the object you'd like to create: " KEY_NAME
+
+#Checking if a bucket name and object key have been provided
+if [[ -z "$BUCKET_NAME" || -z "$KEY_NAME" ]]; then
+	echo "You need to enter a bucket and key name"
+	exit 1
+fi
+
+#Creating the file in the specified bucket
+aws s3api put-object --bucket $BUCKET_NAME --key $KEY_NAME

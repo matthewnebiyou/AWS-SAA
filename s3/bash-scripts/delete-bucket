@@ -1,1 +1,13 @@
-#!bin/bash
+#!/bin/bash
+
+#User inputs S3 bucket name
+read -r -p "Enter the name of the S3 bucket you'd like to delete: " BUCKET_NAME
+
+#Checking if user has inputted S3 bucket name
+if [ -z "$BUCKET_NAME" ]; then
+	echo "You need to specify a bucket name"
+	exit 1
+fi
+
+#Deleting specified S3 bucket
+aws s3api delete-bucket --bucket $BUCKET_NAME
