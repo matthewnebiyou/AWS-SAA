@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Deploying S3 bucket via AWS CFN (AWS CloudFormation)
+aws cloudformation deploy \
+	--template-file template.yaml \
+	--stack-name "cfn-s3-simple" \
+	--no-execute-changeset
+

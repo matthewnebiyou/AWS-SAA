@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Requesting name of stack to be deleted from user
+read -r -p "Enter the name of the stack you wish to delete: " STACK_NAME
+
+# Deleting the specified stack
+aws cloudformation delete-stack --stack-name $STACK_NAME
+

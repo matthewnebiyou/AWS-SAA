@@ -1,0 +1,8 @@
+# AWS CloudFormation (CFN) template
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-formats.html
+AWSTemplateFormatVersion: "2010-09-09"
+Description: A simple S3 bucket
+Resources:
+  S3Bucket:
+    Type: 'AWS::S3::Bucket'
+    # No need to set bucket name as AWS will generate a random one
