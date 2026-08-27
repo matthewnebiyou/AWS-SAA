@@ -1,14 +1,17 @@
 #!/bin/bash
 
-#Requesting bucket and key name for creating the file
+#Requesting bucket and local path for uploading the file
 read -r -p "Enter the name of the S3 bucket: " BUCKET_NAME
-read -r -p "Enter the the name of the object you'd like to create: " KEY_NAME
+read -r -p "Enter the the full path to the object you'd like to upload: " USER_PATH
 
 #Checking if a bucket name and object key have been provided
-if [[ -z "$BUCKET_NAME" || -z "$KEY_NAME" ]]; then
-	echo "You need to enter a bucket and key name"
+if [[ -z "$BUCKET_NAME" || -z "$USER_PATH" ]]; then
+	echo "You need to enter a bucket and local path to file being uploaded"
 	exit 1
 fi
 
+#Extracting object name from user provided path and setting as key name
+KEY_NAME=$(basename "$USER_PATH")
+
 #Creating the file in the specified bucket
-aws s3api put-object --bucket $BUCKET_NAME --key $KEY_NAME
+aws s3api put-object --bucket $BUCKET_NAME --body $USER_PATH --key $KEY_NAME
