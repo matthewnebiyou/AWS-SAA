@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Asking user for bucket name
+read -r -p "Enter the name of the bucket you'd like to delete ALL objects from: " BUCKET_NAME
+
+# Checking if user inputted bucket name
+if [ -z "$BUCKET_NAME" ]; then
+	echo "You need to specify a bucket name"
+	exit 1
+fi
+
+# Collecting the names of all the objects in the bucket, isolating the keys and piping into jq to reformat
+# appropriately for the aws s3api delete-objects command
+aws s3api list-objects-v2 --bucket $BUCKET_NAME --query Contents[].Key | jq -n '{Objects: [inputs | .[] | {Key: .}]}' > /tmp/delete_objects.json
+
+# Deleting the objects from the bucket
+aws s3api delete-objects --bucket $BUCKET_NAME --delete file:///tmp/delete_objects.json
+
